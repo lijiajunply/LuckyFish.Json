@@ -1,3 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using LuckyFish.Json.csly;
 
-Console.WriteLine("Hello, World!");
+var b = Interpreter.Use(File.ReadAllText("/home/luckyfish/RiderProjects/LuckyFish.Json/LuckyFish.Json/Ex/Ex.json"));
+Console.WriteLine(b);

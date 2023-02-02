@@ -7,4 +7,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\LuckyFish.Json\LuckyFish.Json.csproj" />
+    </ItemGroup>
+
 </Project>
