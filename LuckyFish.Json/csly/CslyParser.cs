@@ -10,7 +10,7 @@ public class CslyParser
     [Production("root:object")]
     public JsonValue Root(JsonValue a) => a;
     [Production("object:ACCG[d]  ACCD[d]")]
-    public JsonValue ObjectNull() => new JsonObject(new Dictionary<string,JsonValue>());
+    public JsonValue ObjectNull() => new JsonObject(new List<JsonDictionary>());
 
     [Production("object:ACCG[d] member ACCD[d]")]
     public JsonValue Object(JsonObject a) => a;
@@ -18,22 +18,25 @@ public class CslyParser
     [Production("member: prop and*")]
     public JsonValue Members(JsonDictionary head,List<JsonValue> tail)
     {
-        Dictionary<string,JsonValue> a = new Dictionary<string,JsonValue>();
-        a.Add(head.Get().Key,head.Get().Value);
-        foreach (var value in tail)
-            if (value is JsonDictionary d)
-                a.Add(d.Get().Key,d.Get().Value);
-        return new JsonObject(a);
+        if (tail != null)
+        {
+            tail.Insert(0,head);
+        }
+        else
+        {
+            tail = new List<JsonValue>() { head };
+        }
+        return new JsonObject(tail.OfType<JsonDictionary>().ToList());
     }
 
     [Production("and : COMMA[d] prop")]
     public JsonValue property(JsonDictionary property) => property;
 
     [Production("prop: STRING COLON[d] value")]
-    public JsonValue property(Token<CslyToken> key,JsonValue value) => new JsonDictionary(key.Value,value);
+    public JsonValue property(Token<CslyToken> key,JsonValue value) => new JsonDictionary(key.Value.Split(@"""")[1],value);
 
     [Production("value: STRING")]
-    public JsonValue String(Token<CslyToken> s) => new JsonString(s.Value);
+    public JsonValue String(Token<CslyToken> s) => new JsonString(s.Value.Split(@"""")[1]);
 
     [Production("value:INT")]
     public JsonValue Int(Token<CslyToken> i) => new JsonInt(i.IntValue);

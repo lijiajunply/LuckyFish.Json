@@ -10,5 +10,10 @@ public class JsonDictionary : JsonValue
         Key   = key;
         Value = value;
     }
-    public KeyValuePair<string,JsonValue> Get() => new KeyValuePair<string,JsonValue>(Key,Value);
+    public          KeyValuePair<string,JsonValue> Get()      => new KeyValuePair<string,JsonValue>(Key,Value);
+    public override string                         ToString() => @""""+Key+@""" : "+Value;
+
+    public string GetName() => Key;
+
+    public object GetValue() => Value.GetValue();
 }

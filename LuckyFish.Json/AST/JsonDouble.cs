@@ -6,4 +6,5 @@ public class JsonDouble : JsonValue
 
     public JsonDouble(double value) => Value = value;
     public override string ToString() => Value.ToString();
+    public          object GetValue() => Value;
 }

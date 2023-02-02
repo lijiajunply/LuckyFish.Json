@@ -6,4 +6,5 @@ public class JsonString : JsonValue
 
     public JsonString(string a) => Value = a;
     public override string ToString() => Value;
+    public          object GetValue() => Value;
 }

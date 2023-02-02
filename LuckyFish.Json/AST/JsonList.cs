@@ -15,4 +15,10 @@ public class JsonList : JsonValue
         builder.Append("]");
         return builder.ToString();
     }
+    public object GetValue()
+    {
+        List<object> a = new List<object>();
+        Values.ForEach(x => a.Add(x.GetValue()));
+        return a;
+    }
 }

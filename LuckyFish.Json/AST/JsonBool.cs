@@ -6,4 +6,5 @@ public class JsonBool : JsonValue
 
     public JsonBool(bool value) => Value = value;
     public override string ToString() => Value.ToString();
+    public          object GetValue() => Value;
 }
