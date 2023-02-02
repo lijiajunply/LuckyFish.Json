@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text;
 
 namespace LuckyFish.Json.AST;
@@ -15,10 +16,23 @@ public class JsonList : JsonValue
         builder.Append("]");
         return builder.ToString();
     }
-    public object GetValue()
+    public object GetValue(Type type)
     {
-        List<object> a = new List<object>();
-        Values.ForEach(x => a.Add(x.GetValue()));
+        var    a        = Activator.CreateInstance(type);
+        string listtype = type.ToString().Split("[")[^1][..^1];
+        var    aaa      = type.GetProperties();
+        if (a is IList list)
+        {
+            Type[] genericArgTypes = type.GetGenericArguments();
+            Type   item            = genericArgTypes[0];
+            foreach (var value in Values)
+            {
+                if (value is JsonObject o)
+                    list.Add(o.GetValue(item));
+                else
+                    list.Add(value.GetValue());
+            }
+        }
         return a;
     }
 }

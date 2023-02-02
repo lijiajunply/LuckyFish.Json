@@ -3,7 +3,7 @@
   "Ex": {
     "LibName": "Time",
     "Var": 0.3,
-    "IsDic": false
+    "IsDir": true
   },
   "LibInfos": [
     {
@@ -29,7 +29,7 @@
     {
       "LibName": "Time",
       "Var": 0.3,
-      "IsDic": false
+      "IsDir": false
     }
   ],
   "Ver": "0.3.0",

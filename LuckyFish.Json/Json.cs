@@ -28,10 +28,10 @@ public static class Json
         var type = a.GetType();
         var p    = type.GetProperties();
         foreach (var info in p)
-            info.SetValue(a,b.GetValue(info.Name));
+            info.SetValue(a,b.GetValue(info.Name,info.PropertyType));
         var f    = type.GetFields();
         foreach (var info in f)
-            info.SetValue(a,b.GetValue(info.Name));
+            info.SetValue(a,b.GetValue(info.Name,info.FieldType));
         return a;
     }
 

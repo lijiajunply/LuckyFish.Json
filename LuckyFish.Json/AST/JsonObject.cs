@@ -19,17 +19,24 @@ public class JsonObject : JsonValue
         builder.Append("\n}");
         return builder.ToString();
     }
-    public object GetValue(string name)
+    public object GetValue(string name,Type type)
     {
-        object a = new object();
-        foreach (var value in Values)
-            if (value.GetName() == name)
-                a = value.GetValue();
-        if (a is JsonObject jsonObject)
-        {
-            
-        }
+        var b = Values.FirstOrDefault(x => x.Key == name).Get().Value;
+        if (b is JsonObject jsonObject)
+            return jsonObject.GetValue(type);
+        if (b is JsonList list)
+            return list.GetValue(type);
+        return b.GetValue();
+    }
+    public object GetValue(Type type)
+    {
+        var a = Activator.CreateInstance(type);
+        var p = type.GetProperties();
+        foreach (var info in p)
+            info.SetValue(a,GetValue(info.Name,info.PropertyType));
+        var f = type.GetFields();
+        foreach (var info in f)
+            info.SetValue(a,GetValue(info.Name,info.FieldType));
         return a;
     }
-    public object GetValue() => Values;
 }
