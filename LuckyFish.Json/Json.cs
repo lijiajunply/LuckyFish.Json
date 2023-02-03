@@ -34,96 +34,46 @@ public static class Json
             info.SetValue(a,b.GetValue(info.Name,info.FieldType));
         return a;
     }
-
-    #region Set
-
     
-    
-    #endregion
-
     #region Get
 
-    private static JsonDictionary GetValue(string name,object obj)
-    {
-        if (obj is int i)
-        {
-            return new JsonDictionary(name,new JsonInt(i));
-        }
-        if (obj is double d)
-        {
-            return new JsonDictionary(name,new JsonDouble(d));
-        }
-        if (obj is string s)
-        {
-            return new JsonDictionary(name,new JsonString(s));
-        }
-        if (obj is bool b)
-        {
-            return new JsonDictionary(name,new JsonBool(b));
-        }
-        if (obj is IList list)
-        {
-            List<JsonValue> values = new List<JsonValue>();
-            foreach (var VARIABLE in list)
-                values.Add(Get(VARIABLE));
-
-            return new JsonDictionary(name,new JsonList(values));
-        }
-        if (obj is object)
-        {
-            var type = obj.GetType();
-            var p    = type.GetProperties();
-            var f    = type.GetFields();
-
-            List<JsonDictionary> a = new List<JsonDictionary>();
-            foreach (var info in p)
-                a.Add(GetValue(info.Name,info.GetValue(obj)!));
-            foreach (var info in f)
-                a.Add(GetValue(info.Name,info.GetValue(obj)!));
-            return new JsonDictionary(name,new JsonObject(a));
-        }
-        return new JsonDictionary(name,new JsonNull());
-    }
+    private static JsonDictionary GetValue(string name,object obj) => new JsonDictionary(name,Get(obj));
     private static JsonValue Get(object obj)
     {
-        if (obj is int i)
+        switch (obj)
         {
-            return new JsonInt(i);
-        }
-        if (obj is double d)
-        {
-            return new JsonDouble(d);
-        }
-        if (obj is string s)
-        {
-            return new JsonString(s);
-        }
-        if (obj is bool b)
-        {
-            return new JsonBool(b);
-        }
-        if (obj is IList list)
-        {
-            List<JsonValue> values = new List<JsonValue>();
-            foreach (var variable in list)
-                values.Add(Get(variable));
+            case int i:
+                return new JsonInt(i);
+            case double d:
+                return new JsonDouble(d);
+            case string s:
+                return new JsonString(s);
+            case bool b:
+                return new JsonBool(b);
+            case IList list:
+            {
+                List<JsonValue> values = new List<JsonValue>();
+                foreach (var variable in list)
+                    values.Add(Get(variable));
 
-            return new JsonList(values);
-        }
-        if (obj is object)
-        {
-            var type = obj.GetType();
-            var p    = type.GetProperties();
-            var f    = type.GetFields();
+                return new JsonList(values);
+            }
+            case object:
+            {
+                var type = obj.GetType();
+                var p    = type.GetProperties();
+                var f    = type.GetFields();
 
-            List<JsonDictionary> a = new List<JsonDictionary>();
-            foreach (var info in p)
-                a.Add(GetValue(info.Name,info.GetValue(obj)!));
-            foreach (var info in f)
-                a.Add(GetValue(info.Name,info.GetValue(obj)!));
-            return new JsonObject(a);
+                List<JsonDictionary> a = new List<JsonDictionary>();
+                foreach (var info in p)
+                    a.Add(GetValue(info.Name,info.GetValue(obj)!));
+                foreach (var info in f)
+                    a.Add(GetValue(info.Name,info.GetValue(obj)!));
+                return new JsonObject(a);
+            }
+            default:
+                return new JsonNull();
         }
-        return new JsonNull();
     }
 
     #endregion

@@ -24,7 +24,7 @@ public class LangInfo
 
     public LibInfo Ex { get; set; }
     
-    public List<LibInfo> LibInfos { get; set; }
+    public LibInfo[] LibInfos { get; set; }
 
     public string Ver { get; set; }
 
