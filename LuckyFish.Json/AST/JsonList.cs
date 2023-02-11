@@ -25,9 +25,9 @@ public class JsonList : JsonValue
             Type item = type;
             if (a is Array)
             {
-                var b = item.ToString()[..^2];
+                var b    = item.ToString()[..^2];
                 item = Activator.CreateInstanceFrom(type.Module.ToString(),b).Unwrap().GetType();
-                int i = 0;
+                int i        = 0;
                 foreach (var value in Values)
                 {
                     if (value is JsonObject o)
