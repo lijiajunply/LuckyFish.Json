@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuckyFish.Json", "LuckyFish
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.App", "Json.App\Json.App.csproj", "{26C34966-7C73-4181-AB23-9B2C48DF67F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualJson", "VisualJson\VisualJson.csproj", "{3CBDB0ED-755F-4566-9467-D4A715A2A4B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{26C34966-7C73-4181-AB23-9B2C48DF67F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26C34966-7C73-4181-AB23-9B2C48DF67F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26C34966-7C73-4181-AB23-9B2C48DF67F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CBDB0ED-755F-4566-9467-D4A715A2A4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CBDB0ED-755F-4566-9467-D4A715A2A4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CBDB0ED-755F-4566-9467-D4A715A2A4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CBDB0ED-755F-4566-9467-D4A715A2A4B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
