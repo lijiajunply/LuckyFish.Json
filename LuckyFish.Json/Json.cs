@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Reflection;
 using LuckyFish.Json.AST;
-using LuckyFish.Json.csly;
+using LuckyFish.Json.Csly;
 
 namespace LuckyFish.Json;
 
@@ -13,19 +13,20 @@ public static class Json
         var p = type.GetProperties();
         var f = type.GetFields();
 
-        List<JsonDictionary> a = new List<JsonDictionary>();
-        foreach (var info in p)
-            a.Add(GetValue(info.Name, info.GetValue(obj)!));
-        foreach (var info in f)
-            a.Add(GetValue(info.Name, info.GetValue(obj)!));
+        List<JsonDictionary> a = p.Select
+            (info => GetValue(info.Name, info.GetValue(obj)!)).ToList();
+        a.AddRange(f.Select(info => GetValue
+            (info.Name, info.GetValue(obj)!)));
 
         return new JsonObject(a).ToString();
     }
 
+    public static IJsonValue? DeSerialization(string jsonString) => Interpreter.Use(jsonString);
+
     public static T DeSerialization<T>(string jsonString) where T : new()
     {
         T a = new T();
-        var b = (JsonObject)Interpreter.Use(jsonString);
+        var b = (JsonObject)Interpreter.Use(jsonString)!;
         var type = a.GetType();
         var p = type.GetProperties();
         foreach (var info in p)
@@ -40,7 +41,7 @@ public static class Json
 
     private static JsonDictionary GetValue(string name, object obj) => new(name, Get(obj));
 
-    private static JsonValue Get(object obj)
+    private static IJsonValue Get(object obj)
     {
         switch (obj)
         {
@@ -54,7 +55,7 @@ public static class Json
                 return new JsonBool(b);
             case IList list:
             {
-                List<JsonValue> values = new List<JsonValue>();
+                List<IJsonValue> values = new List<IJsonValue>();
                 foreach (var variable in list)
                     values.Add(Get(variable));
 

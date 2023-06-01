@@ -4,34 +4,39 @@ using System.Text;
 
 namespace LuckyFish.Json.AST;
 
-public class JsonList : JsonValue
+public class JsonList : IJsonValue
 {
-    private List<JsonValue> Values { get; set; }
+    private List<IJsonValue> Values { get; set; }
 
-    public JsonList(List<JsonValue> values) => Values = values;
+    public JsonList(List<IJsonValue> values) => Values = values;
+
     public override string ToString()
     {
         StringBuilder builder = new StringBuilder("[");
         for (int i = 0; i < Values.Count; i++)
             builder.Append(Values[i] + (i == Values.Count - 1 ? "" : ","));
-        builder.Append("]");
+        builder.Append(']');
         return builder.ToString();
     }
-    public object GetValue(Type type)
+
+    public object? GetValue(Type type)
     {
-        var    a        = Activator.CreateInstance(type,BindingFlags.CreateInstance);
+        var a = Activator.CreateInstance(type, BindingFlags.CreateInstance);
         if (a is IList list)
         {
-            Type item = type;
+            Type? item = type;
             if (a is Array)
             {
-                var b    = item.ToString()[..^2];
-                item = Activator.CreateInstanceFrom(type.Module.ToString(),b).Unwrap().GetType();
-                int i        = 0;
+                var b = item.ToString()[..^2];
+                item = Activator.CreateInstanceFrom(type.Module.ToString(), b)?.Unwrap()?.GetType();
+                int i = 0;
                 foreach (var value in Values)
                 {
                     if (value is JsonObject o)
-                        list[i] = o.GetValue(item);
+                    {
+                        if (item != null) 
+                            list[i] = o.GetValue(item);
+                    }
                     else
                         list[i] = value.GetValue();
                     i++;
@@ -50,6 +55,7 @@ public class JsonList : JsonValue
                 }
             }
         }
+
         return a;
     }
 }

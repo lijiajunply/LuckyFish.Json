@@ -3,7 +3,7 @@ using System.Threading.Tasks.Dataflow;
 
 namespace LuckyFish.Json.AST;
 
-public class JsonObject : JsonValue
+public class JsonObject : IJsonValue
 {
     private List<JsonDictionary> Values { get; set; }
 
@@ -19,7 +19,7 @@ public class JsonObject : JsonValue
         builder.Append("\n}");
         return builder.ToString();
     }
-    public object GetValue(string name,Type type)
+    public object? GetValue(string name,Type type)
     {
         var b = Values.FirstOrDefault(x => x.Key == name).Get().Value;
         if (b is JsonObject jsonObject)

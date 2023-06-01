@@ -1,6 +1,6 @@
 using sly.lexer;
 
-namespace LuckyFish.Json.csly;
+namespace LuckyFish.Json.Csly;
 
 public enum CslyToken
 {

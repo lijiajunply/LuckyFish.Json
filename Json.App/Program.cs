@@ -7,5 +7,5 @@ Console.WriteLine(b);
 */
 //var _ = LuckyFish.Json.Json.DeSerialization<LangInfo>(File.ReadAllText("/home/luckyfish/RiderProjects/LuckyFish.Json/LuckyFish.Json/Ex/Ex.json"));
 //_.GetType();
-var a = new Test() { I = 1, S = "asdf", T = new Test2() { A = 1 }, A = new List<Test2>() { new Test2() { A = 1 } } };
-Console.WriteLine(LuckyFish.Json.Json.Serialization(a));
+var a = LuckyFish.Json.Json.Serialization(new Test(){T = new Test2(){A = 32},I = 123,S = "3124"});
+Console.WriteLine(a);

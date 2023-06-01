@@ -1,18 +1,19 @@
 namespace LuckyFish.Json.AST;
 
-public class JsonDictionary : JsonValue
+public class JsonDictionary : IJsonValue
 {
-    public string    Key   { get; set; }
-    private JsonValue Value { get; set; }
+    public string Key { get; set; }
+    private IJsonValue Value { get; set; }
 
-    public JsonDictionary(string key,JsonValue value)
+    public JsonDictionary(string key, IJsonValue value)
     {
-        Key   = key;
+        Key = key;
         Value = value;
     }
-    public          KeyValuePair<string,JsonValue> Get()      => new KeyValuePair<string,JsonValue>(Key,Value);
-    public override string                         ToString() => @""""+Key+@""" : "+Value;
-    
+
+    public KeyValuePair<string, IJsonValue> Get() => new KeyValuePair<string, IJsonValue>(Key, Value);
+    public override string ToString() => @"""" + Key + @""" : " + Value;
+
 
     public object GetValue() => Value.GetValue();
 }
