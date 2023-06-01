@@ -5,7 +5,7 @@ namespace LuckyFish.Json.AST;
 
 public class JsonObject : IJsonValue
 {
-    private List<JsonDictionary> Values { get; set; }
+    public List<JsonDictionary> Values { get; set; }
 
     public JsonObject(List<JsonDictionary> jsonValues) => Values = jsonValues;
 
@@ -39,4 +39,6 @@ public class JsonObject : IJsonValue
             info.SetValue(a,GetValue(info.Name,info.FieldType));
         return a;
     }
+
+    public string? JsonType { get; set; } = "Object";
 }

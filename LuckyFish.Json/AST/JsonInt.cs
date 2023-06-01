@@ -1,10 +1,15 @@
 namespace LuckyFish.Json.AST;
 
-public class JsonInt : IJsonValue
+public class JsonInt : JsonValue
 {
     private int Value { get; set; }
 
-    public JsonInt(int a) => Value = a;
+    public JsonInt(int a)
+    {
+        Value = a;
+        JsonType = "Int";
+    }
+
     public override string ToString() => Value.ToString();
-    public object? GetValue() => Value;
+    public override object? GetValue() => Value;
 }

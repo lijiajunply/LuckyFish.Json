@@ -3,7 +3,7 @@ namespace LuckyFish.Json.AST;
 public class JsonDictionary : IJsonValue
 {
     public string Key { get; set; }
-    private IJsonValue Value { get; set; }
+    public IJsonValue Value { get; set; }
 
     public JsonDictionary(string key, IJsonValue value)
     {
@@ -15,5 +15,6 @@ public class JsonDictionary : IJsonValue
     public override string ToString() => @"""" + Key + @""" : " + Value;
 
 
-    public object GetValue() => Value.GetValue();
+    public string? JsonType { get; set; } = "Dictionary";
+    public object? GetValue() => Value.GetValue();
 }

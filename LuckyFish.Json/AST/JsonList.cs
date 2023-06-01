@@ -6,7 +6,7 @@ namespace LuckyFish.Json.AST;
 
 public class JsonList : IJsonValue
 {
-    private List<IJsonValue> Values { get; set; }
+    public List<IJsonValue> Values { get; set; }
 
     public JsonList(List<IJsonValue> values) => Values = values;
 
@@ -58,4 +58,6 @@ public class JsonList : IJsonValue
 
         return a;
     }
+
+    public string? JsonType { get; set; } = "List";
 }

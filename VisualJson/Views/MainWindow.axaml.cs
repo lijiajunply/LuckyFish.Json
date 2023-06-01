@@ -15,7 +15,8 @@ public partial class MainWindow : Window
         var _editor = this.Find<TextEditor>("Editor");
         RegistryOptions = new RegistryOptions(ThemeName.Light);
         TextMateInstallation = _editor.InstallTextMate(RegistryOptions);
-        //TextMateInstallation.SetGrammar(RegistryOptions.GetScopeByLanguageId(RegistryOptions.GetLanguageByExtension(".json").Id));
+        TextMateInstallation.
+            SetGrammar(RegistryOptions.GetScopeByLanguageId(RegistryOptions.GetLanguageByExtension(".json").Id));
     }
 
     

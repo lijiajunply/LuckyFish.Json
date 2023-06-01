@@ -1,10 +1,15 @@
 namespace LuckyFish.Json.AST;
 
-public class JsonBool : IJsonValue
+public class JsonBool : JsonValue
 {
     private bool Value { get; set; }
 
-    public JsonBool(bool value) => Value = value;
+    public JsonBool(bool value)
+    {
+        JsonType = "Bool";
+        Value = value;
+    }
+
     public override string ToString() => Value.ToString();
-    public object GetValue() => Value;
+    public override object? GetValue() => Value;
 }

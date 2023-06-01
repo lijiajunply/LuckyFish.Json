@@ -11,23 +11,41 @@
         Title="VisualJson">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
-    
+
     <Grid RowDefinitions="Auto,*">
-       <Menu Grid.Row="0">
-           <MenuItem Header="File..">
-               
-           </MenuItem>
-       </Menu>
-        <Grid Grid.Row="1">
-            <edit:TextEditor Name="Editor"
-                             Document="{Binding JsonContext}" 
+        <Menu Grid.Row="0">
+            <MenuItem Header="File..">
+                <MenuItem Header="Open File.." Command="{Binding OpenJsonFile}" />
+                <MenuItem Header="Save.." />
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+
+            <edit:TextEditor Grid.Column="0" Name="Editor"
+                             Document="{Binding JsonContext}"
                              ShowLineNumbers="True"
                              HorizontalScrollBarVisibility="Auto"
                              VerticalScrollBarVisibility="Visible"
-                             FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
+                             FontFamily="Cascadia Code,Consolas,Menlo,Monospace" />
+            <Grid Grid.Column="1" RowDefinitions="*,*">
+                <Grid Grid.Row="0">
+                    <TreeView SelectedItem="{Binding JsonModel}" Items="{Binding JsonObjects}">
+                        <TreeView.ItemTemplate>
+                            <TreeDataTemplate ItemsSource="{Binding Children}">
+                                <Grid ColumnDefinitions="*,*">
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" />
+                                </Grid>
+                            </TreeDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBox Text="{Binding Context}" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
-    
+
 </Window>
