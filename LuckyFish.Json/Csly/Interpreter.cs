@@ -3,7 +3,7 @@ using sly.parser.generator;
 
 namespace LuckyFish.Json.Csly;
 
-public class Interpreter
+public static class Interpreter
 {
     public static IJsonValue? Use(string code)
     {
@@ -12,7 +12,6 @@ public class Interpreter
         var parserBuilder = parser.BuildParser(oldParser,
             ParserType.EBNF_LL_RECURSIVE_DESCENT, "root");
         var buildResult = parserBuilder.Result;
-
         var result = buildResult.Parse(code).Result;
         return result;
     }

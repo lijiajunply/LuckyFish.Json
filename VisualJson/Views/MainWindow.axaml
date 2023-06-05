@@ -34,7 +34,7 @@
                     <TreeView SelectedItem="{Binding JsonModel}" Items="{Binding JsonObjects}">
                         <TreeView.ItemTemplate>
                             <TreeDataTemplate ItemsSource="{Binding Children}">
-                                <Grid ColumnDefinitions="*,*">
+                                <Grid>
                                     <TextBlock Grid.Column="0" Text="{Binding Name}" />
                                 </Grid>
                             </TreeDataTemplate>
@@ -42,7 +42,29 @@
                     </TreeView>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBox Text="{Binding Context}" />
+                    <StackPanel>
+                        <WrapPanel >
+                            <TextBlock Text="Type:" />
+                            <TextBlock Text="{Binding JsonModel.ValueType}" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Context:" />
+                            <TextBox Text="{Binding Context}"/>
+                        </WrapPanel>
+                        <StackPanel>
+                            <WrapPanel>
+                                <TextBlock Text="IsHasChildren:"/>
+                                <TextBlock Text="{Binding JsonModel.IsHasChildren}"/>
+                            </WrapPanel>
+                            <ItemsControl Items="{Binding JsonModel.Children}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>

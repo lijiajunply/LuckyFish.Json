@@ -22,7 +22,7 @@ public class MainWindowViewModel : ViewModelBase
         {
             SetField(ref _jsonModel, value);
             if (value == null || value.IsHasChildren) return;
-            Context = value.Value?.ToString();
+            Context = value.Value?.GetValue()?.ToString();
         }
     }
 
@@ -76,9 +76,16 @@ public class MainWindowViewModel : ViewModelBase
         };
         var result = await dialog.ShowAsync(new Window());
         if (result == null) return;
-        JsonContext = new TextDocument(await File.ReadAllTextAsync(result[0])) { FileName = result[0] };
+        JsonContext = new TextDocument(await File.ReadAllTextAsync(result[0])) 
+            { FileName = result[0] };
     }
 
+    public void UpdateTree(JsonModel model)
+    {
+        JsonObjects.Clear();
+        JsonObjects.Add(model);
+    }
+    
     #endregion
     
 }

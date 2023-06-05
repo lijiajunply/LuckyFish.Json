@@ -9,14 +9,14 @@ public class JsonModel
     public string? ValueType { get; set; }
     public ObservableCollection<JsonModel>? Children { get; set; }
     public string? Name { get; set; }
-    public object? Value { get; set; }
+    public IJsonValue? Value { get; set; }
     public bool IsHasChildren { get; set; }
 
     public JsonModel(IJsonValue? value)
     {
         if(value == null)return;
         IsHasChildren = true;
-        Value = value.GetValue();
+        Value = value;
         ValueType = value.JsonType;
         if (value is JsonDictionary dictionary)
         {
@@ -24,7 +24,7 @@ public class JsonModel
             if (dictionary.Value is JsonValue jsonValue)
             {
                 IsHasChildren = false;
-                Value = jsonValue.GetValue();
+                Value = jsonValue;
                 return;
             }
             Children = new ObservableCollection<JsonModel> { new (dictionary.Value) };
