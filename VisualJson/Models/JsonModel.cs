@@ -23,6 +23,7 @@ public class JsonModel
             Name = dictionary.Key;
             if (dictionary.Value is JsonValue jsonValue)
             {
+                ValueType = $"D-{dictionary.Value.JsonType}";
                 IsHasChildren = false;
                 Value = jsonValue;
                 return;
@@ -45,15 +46,5 @@ public class JsonModel
                 list.Values.Select(x => new JsonModel(x)));
             return;
         }
-
-        Name = ToName(value);
-        IsHasChildren = false;
-    }
-
-    private string? ToName(IJsonValue value)
-    {
-        var v = value.GetValue();
-        if (v == null) return "null";
-        return v.ToString();
     }
 }
